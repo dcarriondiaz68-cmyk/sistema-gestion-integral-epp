@@ -1,0 +1,25 @@
+{
+  "name": "Gestión Integral de EPP - SST",
+  "short_name": "Gestión EPP",
+  "description": "Sistema de Gestión Integral de Equipos de Protección Personal para Seguridad y Salud en el Trabajo",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#1d63e0",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

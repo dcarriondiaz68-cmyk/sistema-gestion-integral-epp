@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-neutral-100 text-neutral-800 font-sans antialiased;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input-base {
+    @apply w-full rounded-lg border border-neutral-300 bg-white px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20;
+  }
+
+  .card-base {
+    @apply rounded-xl border border-neutral-200 bg-white shadow-card;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.neutral.300') transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-neutral-300;
+  }
+}
+
+/* ============================================================
+   Print styles for Registro SST / RM050 — two explicit A4 pages
+   ============================================================ */
+
+/* Print root is hidden on screen */
+.rm050-print-root {
+  display: none;
+}
+
+@media print {
+  /* Hide the React app entirely */
+  #root {
+    display: none !important;
+  }
+
+  /* Hide the modal portal (a direct child of body) but NOT the print root */
+  body > div:not(#root):not(.rm050-print-root) {
+    display: none !important;
+  }
+
+  /* Show only the print structure */
+  .rm050-print-root {
+    display: block !important;
+  }
+
+  /* Ensure backgrounds and borders render in the PDF */
+  .rm050-print-root,
+  .rm050-print-root * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page 1 — explicit break after, forces page 2 onto a new A4 */
+  .rm050-print-page-1 {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Page 2 — flex column stretching the full A4 content height */
+  .rm050-print-page-2 {
+    page-break-after: avoid;
+    break-after: avoid;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: calc(100vh - 30mm);
+  }
+
+  /* Prevent worker rows from splitting across pages */
+  .rm050-print-root tbody tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Keep sections together within a page */
+  .rm050-keep-together {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+}
+
+/* ============================================================
+   Print styles for Reportes y Auditoría
+   ============================================================ */
+
+@media print {
+  .reporte-screen-only {
+    display: none !important;
+  }
+
+  .reporte-print-header {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .reporte-print-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .reporte-print-header p {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  .reporte-print-header + div table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .reporte-print-header + div table th,
+  .reporte-print-header + div table td {
+    border: 1px solid #d1d5db;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  .reporte-print-header + div table thead {
+    background: #f9fafb;
+  }
+
+  .reporte-print-header + div .overflow-x-auto {
+    overflow: visible !important;
+  }
+
+  .reporte-print-header + div [class*="rounded-lg"] {
+    border-radius: 0 !important;
+  }
+}
